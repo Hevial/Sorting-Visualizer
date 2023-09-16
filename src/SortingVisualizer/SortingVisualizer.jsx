@@ -1,5 +1,6 @@
 import React from 'react';
 import './SortingVisualizer.css';
+import * as sortingAlgorithms from "../SortingAlgorithms/SortingAlgorithms.js"
 
 export default class SortingVisualizer extends React.Component {
     constructor(props) {
@@ -23,6 +24,17 @@ export default class SortingVisualizer extends React.Component {
         this.setState({ array });
     }
 
+    mergeSort() {
+        const sortedArray = sortingAlgorithms.mergeSort(this.state.array);
+        console.log(sortedArray, this.state.array);
+    }
+
+    quickSort() { }
+
+    heapSort() { }
+
+    bubbleSort() { }
+
     render() {
         const { array } = this.state;
 
@@ -32,9 +44,13 @@ export default class SortingVisualizer extends React.Component {
                     {array.map((value, idx) => (
                         <div className='array-bar'
                             key={idx}
-                            style={{ height: `${value}px` }}>
-                        </div>
+                            style={{ height: `${value}px` }}></div>
                     ))}
+                    <button onClick={() => this.resetArray()}>Generate New Array</button>
+                    <button onClick={() => this.mergeSort()}>Merge Sort</button>
+                    <button onClick={() => this.quickSort()}>Quick Sort</button>
+                    <button onClick={() => this.heapSort()}>Heap Sort</button>
+                    <button onClick={() => this.bubbleSort()}>Bubble Sort</button>
                 </div>
             </>
         );

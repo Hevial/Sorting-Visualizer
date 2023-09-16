@@ -1,6 +1,7 @@
 .array-container {
-    position: center;
-    margin-top: 10px;
+    position: absolute;
+    top: 10px;
+    left: 20px;
 }
 
 .array-bar {
