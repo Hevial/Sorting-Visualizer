@@ -1,23 +1,60 @@
-export const mergeSort = array => {
+export function getMergeSortAnimations(array) {
+    const animations = [];
+    if (array.length <= 1) return array;
+    mergeSort(array, 0, array.length - 1, animations);
+    return animations;
+}
 
-    if (array.length === 1) return array
-
-    const middleIdx = Math.floor(array.length / 2);
-    const leftArray = mergeSort(array.slice(0, middleIdx));
-    const rightArray = mergeSort(array.slice(middleIdx));
-    const sortedArray = []
-
-    let i = 0, j = 0;
-
-    while (i < leftArray.length && j < rightArray.length) {
-        if (leftArray[i] < rightArray[j])
-            sortedArray.push(leftArray[i++])
-        else
-            sortedArray.push(rightArray[j++])
+function mergeSort(a, l, r, animations) {
+    if (l < r) {
+        let centro1 = Math.floor((l + r) / 2);
+        let centro2 = centro1 + 1
+        mergeSort(a, l, centro1, animations)
+        mergeSort(a, centro2, r, animations)
+        merge(a, l, centro1, centro2, r, animations)
     }
 
-    while (i < leftArray.length) { sortedArray.push(leftArray[i++]) }
-    while (j < rightArray.length) { sortedArray.push(rightArray[j++]) }
+}
 
-    return sortedArray
+function merge(a, sx, c1, c2, dx, animations) {
+
+    let t = []
+    let indexT = sx
+    let iSx = sx
+    let iDx = c2
+
+    while (iSx <= c1 && iDx <= dx) {
+        animations.push([iSx, iDx])
+        animations.push([iSx, iDx])
+        if (a[iSx] <= a[iDx]) {
+            animations.push([indexT, a[iSx]]);
+            t[indexT++] = a[iSx++]
+        }
+        else {
+            animations.push([indexT, a[iDx]]);
+            t[indexT++] = a[iDx++]
+        }
+
+    }
+
+    if (iSx === c2) {
+        while (iDx <= dx) {
+            animations.push([iDx, iDx])
+            animations.push([iDx, iDx])
+            animations.push([indexT, a[iDx]]);
+            t[indexT++] = a[iDx++]
+        }
+    } else {
+        while (iSx <= c1) {
+            animations.push([iSx, iSx])
+            animations.push([iSx, iSx])
+            animations.push([indexT, a[iSx]]);
+            t[indexT++] = a[iSx++]
+        }
+    }
+
+    for (let i = sx; i <= dx; i++) {
+        a[i] = t[i]
+    }
+
 }
