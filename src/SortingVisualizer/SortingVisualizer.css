@@ -1,12 +1,61 @@
+body,
+html {
+    height: 100%;
+    margin: 0;
+}
+
 .array-container {
-    position: absolute;
-    top: 10px;
-    left: 20px;
+    height: 91vh;
+    overflow-y: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    /* Allinea le barre al centro */
+    align-items: flex-end;
+    /* Allinea le barre in basso */
 }
 
 .array-bar {
     width: 2px;
+    /* Imposta una larghezza fissa per ogni barra */
     background-color: blue;
-    display: inline-block;
-    margin: 0 1px
+    margin: 0 1px;
+    /* Imposta un'altezza fissa per ogni barra, se necessario */
+}
+
+.tool-bar {
+    display: block;
+    background-color: darkblue;
+}
+
+.button {
+    margin: 1%;
+    padding: 0.5%;
+    background-color: white;
+    border: none;
+    border-radius: 3px;
+    font-family: sans-serif;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: rgb(240, 240, 240);
+}
+
+#title {
+    font-family: sans-serif;
+    color: white;
+    position: left;
+    margin-left: -2%;
+    margin-right: 10%;
+}
+
+.speed-value {
+    font-family: sans-serif;
+    color: white;
+    margin-right: 10px;
+}
+
+.speed-slider {
+    padding-right: 1%;
 }
