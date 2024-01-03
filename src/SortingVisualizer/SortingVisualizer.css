@@ -24,38 +24,59 @@ html {
 }
 
 .tool-bar {
-    display: block;
+    display: flex;
+    height: 9vh;
     background-color: darkblue;
+    align-items: center;
+}
+
+.tool-bar .menu {
+    display: flex;
+    margin: auto;
 }
 
 .button {
-    margin: 1%;
-    padding: 0.5%;
-    background-color: white;
+    margin: auto;
+    margin-right: 0.5 em;
+    margin-left: 0.5em;
+    padding: 1%;
+    box-shadow: 0px 10px 14px -7px #276873;
+    background: linear-gradient(to bottom, #0083c9 5%, #005a9a 100%);
+    background-color: #0083c9;
+    color: white;
     border: none;
-    border-radius: 3px;
-    font-family: sans-serif;
+    border-radius: 20px;
+    font-family: Roboto, sans-serif;
+    font-weight: bold;
+    text-decoration: none;
+    text-shadow: 0px 1px 0px #3d768a;
+    padding-left: 14px;
+    padding-right: 14px;
     cursor: pointer;
 }
 
 .button:hover {
-    background-color: rgb(240, 240, 240);
+    background: linear-gradient(to bottom, #009cf0 5%, #005a9a 100%);
+    background-color: #009cf0;
 }
 
-#title {
+.button:active {
+    position: relative;
+    top: 1px;
+}
+
+.tool-bar #title {
     font-family: sans-serif;
     color: white;
-    position: left;
-    margin-left: -2%;
-    margin-right: 10%;
+    margin-left: 10px;
+    font-weight: 10;
+    font-size: 16px;
 }
 
 .speed-value {
     font-family: sans-serif;
     color: white;
+    display: inline;
+    font-weight: bold;
     margin-right: 10px;
-}
-
-.speed-slider {
-    padding-right: 1%;
 }

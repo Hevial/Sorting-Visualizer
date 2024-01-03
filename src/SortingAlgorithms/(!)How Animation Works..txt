@@ -1,0 +1,18 @@
+
+? How does animations works ?
+
+The animate function gets this animations array, with all the steps to do;
+The 'action' key is the action that the 'animate' fuction as to do:
+    - compare: highlights the two bars that are currently been compared
+    - swap: swap the two bars values with the given height1, height2
+    - reset: reset the color back to the default one
+
+animations = [
+    { barsIdx: [idxBar1,idxBar2], action: "compare"}
+    { barsIdx: [idxBar1,idxBar2], barHeight: [height1, height2], action: "swap"}
+    { barsIdx: [idxBar1,idxBar2], action: "reset"}
+    ...
+    !NOTE: if the height1 is missing it will just change the idxbar1 value with the height2
+]
+
+

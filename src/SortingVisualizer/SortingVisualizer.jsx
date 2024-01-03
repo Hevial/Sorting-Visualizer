@@ -1,10 +1,12 @@
 import React from 'react';
 import './SortingVisualizer.css';
-import { getMergeSortAnimations } from '../SortingAlgorithms/SortingAlgorithms.js';
-import { getBubbleSortAnimations } from '../SortingAlgorithms/SortingAlgorithms.js';
+import { getMergeSortAnimations } from '../SortingAlgorithms/mergesort.js';
+import { getBubbleSortAnimations } from '../SortingAlgorithms/bubblesort.js';
+import { getQuickSortAnimations } from '../SortingAlgorithms/quicksort.js';
+import { getHeapSortAnimations } from '../SortingAlgorithms/heapsort.js';
 
 // Change this value for the speed of the animations.
-const ANIMATION_SPEED_MS = 1;
+const ANIMATION_SPEED_MS = 10;
 
 // This is the main color of the array bars.
 const PRIMARY_COLOR = 'blue';
@@ -43,9 +45,19 @@ export default class SortingVisualizer extends React.Component {
 
     }
 
-    quickSort() { }
+    quickSort() {
+        console.log("Array originale:", this.state.array);
+        const animations = getQuickSortAnimations(this.state.array);
+        console.log("Array originale sortato:", this.state.array);
+        this.animate(animations);
+    }
 
-    heapSort() { }
+    heapSort() {
+        console.log("Array originale:", this.state.array);
+        const animations = getHeapSortAnimations(this.state.array);
+        console.log("Array originale sortato:", this.state.array);
+        this.animate(animations);
+    }
 
     bubbleSort() {
         console.log("Array originale:", this.state.array);
@@ -75,7 +87,7 @@ export default class SortingVisualizer extends React.Component {
                     setTimeout(() => {
                         barOneStyle.backgroundColor = SECONDARY_COLOR
                         barTwoStyle.backgroundColor = SECONDARY_COLOR
-                    }, i * ANIMATION_SPEED_MS);
+                    }, i * ANIMATION_SPEED_MS / this.state.speed);
                     break
 
                 case "swap":
@@ -87,7 +99,7 @@ export default class SortingVisualizer extends React.Component {
                         barOneStyle.height = `${barTwoHeight}px`
                         if (barOneHeight)
                             barTwoStyle.height = `${barOneHeight}px`
-                    }, i * ANIMATION_SPEED_MS);
+                    }, i * ANIMATION_SPEED_MS / this.state.speed);
                     break
 
                 case "reset":
@@ -96,7 +108,7 @@ export default class SortingVisualizer extends React.Component {
                     setTimeout(() => {
                         barOneStyle.backgroundColor = PRIMARY_COLOR
                         barTwoStyle.backgroundColor = PRIMARY_COLOR
-                    }, i * ANIMATION_SPEED_MS);
+                    }, i * ANIMATION_SPEED_MS / this.state.speed);
                     break
 
                 default:
@@ -123,23 +135,31 @@ export default class SortingVisualizer extends React.Component {
 
                 </div>
                 <div className='tool-bar' >
-                    <span id="title">Sorting Visualizer By Samuele Vasta</span>
+                    <div>
+                        <span id="title">Sorting Visualizer By Samuele Vasta</span>
+                    </div>
 
-                    <span className="speed-value">{this.state.speed}</span>
-                    <input
-                        id="speed-slider"
-                        type="range"
-                        value={this.state.speed}
-                        min="1"
-                        max="9"
-                        step="1"
-                        onChange={(e) => this.setState({ speed: parseInt(e.target.value) })}
-                    />
-                    <button className='button' onClick={() => this.resetArray()}>Generate New Array</button>
-                    <button className='button' onClick={() => this.mergeSort()}>Merge Sort</button>
-                    <button className='button' onClick={() => this.quickSort()}>Quick Sort</button>
-                    <button className='button' onClick={() => this.heapSort()}>Heap Sort</button>
-                    <button className='button' onClick={() => this.bubbleSort()}>Bubble Sort</button>
+                    <div className='menu'>
+                        <p className="speed-value">{this.state.speed}</p>
+                        <input
+                            id="speed-slider"
+                            type="range"
+                            value={this.state.speed}
+                            min="1"
+                            max="9"
+                            step="1"
+                            onChange={(e) => {
+                                this.setState({ speed: parseInt(e.target.value) })
+                            }}
+                        />
+
+                        <button className='button' onClick={() => this.resetArray()}>Generate New Array</button>
+                        <button className='button' onClick={() => this.mergeSort()}>Merge Sort</button>
+                        <button className='button' onClick={() => this.quickSort()}>Quick Sort</button>
+                        <button className='button' onClick={() => this.heapSort()}>Heap Sort</button>
+                        <button className='button' onClick={() => this.bubbleSort()}>Bubble Sort</button>
+                    </div>
+
                 </div>
             </>
         );
