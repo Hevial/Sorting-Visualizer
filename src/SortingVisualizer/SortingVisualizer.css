@@ -1,5 +1,6 @@
 body,
 html {
+    font-family: sans-serif;
     height: 100%;
     margin: 0;
 }
@@ -10,17 +11,14 @@ html {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    /* Allinea le barre al centro */
     align-items: flex-end;
-    /* Allinea le barre in basso */
 }
 
 .array-bar {
-    width: 2px;
-    /* Imposta una larghezza fissa per ogni barra */
+    width: 4px;
     background-color: blue;
     margin: 0 1px;
-    /* Imposta un'altezza fissa per ogni barra, se necessario */
+    border-radius: 1px;
 }
 
 .tool-bar {
@@ -28,15 +26,17 @@ html {
     height: 9vh;
     background-color: darkblue;
     align-items: center;
+    justify-content: space-between;
 }
 
-.tool-bar .menu {
+.menu {
     display: flex;
-    margin: auto;
+    align-items: center;
+    margin-left: 2%;
 }
 
 .button {
-    margin: auto;
+    margin: 0.5em;
     margin-right: 0.5 em;
     margin-left: 0.5em;
     padding: 1%;
@@ -46,7 +46,7 @@ html {
     color: white;
     border: none;
     border-radius: 20px;
-    font-family: Roboto, sans-serif;
+    font-family: sans-serif;
     font-weight: bold;
     text-decoration: none;
     text-shadow: 0px 1px 0px #3d768a;
@@ -65,6 +65,13 @@ html {
     top: 1px;
 }
 
+.button.disabled,
+.speed-slider.disabled {
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+
 .tool-bar #title {
     font-family: sans-serif;
     color: white;
@@ -79,4 +86,18 @@ html {
     display: inline;
     font-weight: bold;
     margin-right: 10px;
+}
+
+.slider {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0;
+}
+
+.slider-label {
+    margin: 0;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
 }

@@ -5,8 +5,6 @@ export function getHeapSortAnimations(array) {
     return animations;
 }
 
-const swap = (arr, a, b) => { [arr[a], arr[b]] = [arr[b], arr[a]]; }
-
 class MaxHeap {
     constructor() {
         this.heap = [];
