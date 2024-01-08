@@ -198,7 +198,7 @@ export default class SortingVisualizer extends React.Component {
                 </div>
                 <div className='tool-bar' >
                     <div>
-                        <span id="title">Sorting Visualizer By Samuele Vasta</span>
+                        <span id="title">Sorting Visualizer</span>
                     </div>
                     <div className='menu'>
                         <p className="speed-value">{this.state.speed}</p>
