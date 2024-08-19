@@ -17,7 +17,7 @@ html {
   width: 4px;
   background-color: blue;
   margin: 0 1px;
-  border-radius: 1px;
+  border-radius: 2px 2px 0px 0px;
   transition: height 0.2s ease;
 }
 
@@ -100,4 +100,3 @@ html {
   font-size: 14px;
   font-weight: bold;
 }
-

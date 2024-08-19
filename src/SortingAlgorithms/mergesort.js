@@ -24,17 +24,20 @@ function merge(a, sx, c1, c2, dx, animations) {
   for (let k = sx; k <= dx; k++) {
     if (left[iSx] <= right[iDx]) {
       animations.push(
-        { barsIdx: [k, iSx], action: 'compare' },
+        {
+          barsIdx: [sx + iSx, c1 + iDx],
+          action: 'compare'
+        },
         { barsIdx: [k, iSx], barHeight: [, left[iSx]], action: 'swap' },
-        { barsIdx: [k, iSx], action: 'reset' }
+        { barsIdx: [sx + iSx, c1 + iDx], action: 'reset' }
       );
 
       a[k] = left[iSx++];
     } else {
       animations.push(
-        { barsIdx: [k, iDx], action: 'compare' },
+        { barsIdx: [sx + iSx, c1 + iDx], action: 'compare' },
         { barsIdx: [k, iDx], barHeight: [, right[iDx]], action: 'swap' },
-        { barsIdx: [k, iDx], action: 'reset' }
+        { barsIdx: [sx + iSx, c1 + iDx], action: 'reset' }
       );
 
       a[k] = right[iDx++];

@@ -108,7 +108,8 @@ export default class SortingVisualizer extends React.Component {
     const speed = this.state.speed;
     const arrayBars = document.getElementsByClassName('array-bar');
 
-    //console.log(animations);
+    console.log(animations);
+
     for (let i = 0; i < animations.length; i++) {
       const animation = animations[i];
       const [barOneIdx, barTwoIdx] = animation.barsIdx;
@@ -116,7 +117,6 @@ export default class SortingVisualizer extends React.Component {
       const barOneStyle = arrayBars[barOneIdx].style;
       const barTwoStyle = arrayBars[barTwoIdx].style;
 
-      // comparing the two values
       switch (animation.action) {
         case 'compare':
           //comparing the two values
