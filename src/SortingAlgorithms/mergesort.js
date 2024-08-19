@@ -7,53 +7,37 @@ export function getMergeSortAnimations(array) {
 
 function mergeSort(a, l, r, animations) {
   if (l < r) {
-    let centro1 = Math.floor((l + r) / 2);
-    let centro2 = centro1 + 1;
-    mergeSort(a, l, centro1, animations);
-    mergeSort(a, centro2, r, animations);
-    merge(a, l, centro1, centro2, r, animations);
+    let center1 = Math.floor((l + r) / 2);
+    let center2 = center1 + 1;
+    mergeSort(a, l, center1, animations);
+    mergeSort(a, center2, r, animations);
+    merge(a, l, center1, center2, r, animations);
   }
 }
 
 function merge(a, sx, c1, c2, dx, animations) {
-  let t = [...a];
-  let indexT = sx;
-  let iSx = sx;
-  let iDx = c2;
+  let left = [...a.slice(sx, c1 + 1), Infinity];
+  let right = [...a.slice(c2, dx + 1), Infinity];
+  let iSx = 0;
+  let iDx = 0;
 
-  while (iSx <= c1 && iDx <= dx) {
-    if (t[iSx] <= t[iDx]) {
+  for (let k = sx; k <= dx; k++) {
+    if (left[iSx] <= right[iDx]) {
       animations.push(
-        { barsIdx: [indexT, iSx], action: 'compare' },
-        { barsIdx: [indexT, iSx], barHeight: [, t[iSx]], action: 'swap' },
-        { barsIdx: [indexT, iSx], action: 'reset' }
+        { barsIdx: [k, iSx], action: 'compare' },
+        { barsIdx: [k, iSx], barHeight: [, left[iSx]], action: 'swap' },
+        { barsIdx: [k, iSx], action: 'reset' }
       );
-      a[indexT++] = t[iSx++];
+
+      a[k] = left[iSx++];
     } else {
       animations.push(
-        { barsIdx: [indexT, iDx], action: 'compare' },
-        { barsIdx: [indexT, iDx], barHeight: [, t[iDx]], action: 'swap' },
-        { barsIdx: [indexT, iDx], action: 'reset' }
+        { barsIdx: [k, iDx], action: 'compare' },
+        { barsIdx: [k, iDx], barHeight: [, right[iDx]], action: 'swap' },
+        { barsIdx: [k, iDx], action: 'reset' }
       );
-      a[indexT++] = t[iDx++];
+
+      a[k] = right[iDx++];
     }
-  }
-
-  while (iDx <= dx) {
-    animations.push(
-      { barsIdx: [indexT, iDx], action: 'compare' },
-      { barsIdx: [indexT, iDx], barHeight: [, t[iDx]], action: 'swap' },
-      { barsIdx: [indexT, iDx], action: 'reset' }
-    );
-    a[indexT++] = t[iDx++];
-  }
-
-  while (iSx <= c1) {
-    animations.push(
-      { barsIdx: [indexT, iSx], action: 'compare' },
-      { barsIdx: [indexT, iSx], barHeight: [, t[iSx]], action: 'swap' },
-      { barsIdx: [indexT, iSx], action: 'reset' }
-    );
-    a[indexT++] = t[iSx++];
   }
 }
