@@ -15,7 +15,6 @@ const PRIMARY_COLOR = 'blue';
 const SECONDARY_COLOR = 'red';
 
 let isSorted = false;
-let reset = false;
 
 export default class SortingVisualizer extends React.Component {
   constructor(props) {
@@ -194,7 +193,7 @@ export default class SortingVisualizer extends React.Component {
                 max='9'
                 step='1'
                 onChange={e => {
-                  this.setState({ speed: parseInt(e.target.value) });
+                  this.setState({ speed: e.target.value });
                 }}
               />
             </div>

@@ -97,18 +97,16 @@ class MaxHeap {
 }
 
 function heapSort(arr, animations) {
-  let sorted = [];
-  let heap1 = new MaxHeap();
+  let heap = new MaxHeap();
+
+  //build the heap
 
   for (let i = 0; i < arr.length; i++) {
-    arr[i] = heap1.insert(arr[i], animations);
+    heap.insert(arr[i], animations);
   }
 
-  //console.log("Heap: ", heap1.heap);
-
+  // Extract elements from the heap and sort the array
   for (let i = 0; i < arr.length; i++) {
-    arr[i] = sorted.unshift(heap1.delete(animations, i, arr.length - i - 1));
+    arr[i] = heap.delete(animations, i, arr.length - i - 1);
   }
-
-  //return sorted;
 }
