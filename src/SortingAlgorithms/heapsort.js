@@ -107,6 +107,6 @@ function heapSort(arr, animations) {
 
   // Extract elements from the heap and sort the array
   for (let i = 0; i < arr.length; i++) {
-    arr[i] = heap.delete(animations, i, arr.length - i - 1);
+    arr[arr.length - 1 - i] = heap.delete(animations, i, arr.length - i - 1);
   }
 }
