@@ -60,55 +60,60 @@ export default class SortingVisualizer extends React.Component {
       array.push(Math.min(Math.random(), 0.99));
     }
 
-    this.setState({ array }, () => {
-      // Questa funzione di callback viene eseguita dopo che il componente è stato aggiornato
-      const arrayBars = document.getElementsByClassName('array-bar');
-      for (let i = 0; i < arrayBars.length; i++) {
-        const heightValue = this.state.array[i] * 100;
-        arrayBars[i].style.height = `${heightValue}%`;
-        arrayBars[i].style.backgroundColor = PRIMARY_COLOR;
-      }
+    return new Promise(resolve => {
+      this.setState({ array }, () => {
+        // Questa funzione di callback viene eseguita dopo che il componente è stato aggiornato
+        const arrayBars = document.getElementsByClassName('array-bar');
+        for (let i = 0; i < arrayBars.length; i++) {
+          const heightValue = this.state.array[i] * 100;
+          arrayBars[i].style.height = `${heightValue}%`;
+          arrayBars[i].style.backgroundColor = PRIMARY_COLOR;
+        }
+
+        resolve();
+      });
     });
   }
 
   mergeSort() {
     isSorted = true;
-    console.log('Array originale:', this.state.array);
+    //console.log('Array originale:', this.state.array);
     const animations = getMergeSortAnimations(this.state.array);
-    console.log('Array originale sortato:', this.state.array);
+    //console.log('Array originale sortato:', this.state.array);
     this.animate(animations);
   }
 
   quickSort() {
     isSorted = true;
-    console.log('Array originale:', this.state.array);
+    //console.log('Array originale:', this.state.array);
     const animations = getQuickSortAnimations(this.state.array);
-    console.log('Array originale sortato:', this.state.array);
+    //console.log('Array originale sortato:', this.state.array);
     this.animate(animations);
   }
 
   heapSort() {
     isSorted = true;
-    console.log('Array originale:', this.state.array);
+    //console.log('Array originale:', this.state.array);
     const animations = getHeapSortAnimations(this.state.array);
-    console.log('Array originale sortato:', this.state.array);
+    //console.log('Array originale sortato:', this.state.array);
     this.animate(animations);
   }
 
   bubbleSort() {
     isSorted = true;
-    console.log('Array originale:', this.state.array);
+    //console.log('Array originale:', this.state.array);
     const animations = getBubbleSortAnimations(this.state.array);
-    console.log('Array originale sortato:', this.state.array);
+    //console.log('Array originale sortato:', this.state.array);
     this.animate(animations);
   }
 
   animate(animations) {
     this.disableButtons();
+
     const speed = this.state.speed;
     const arrayBars = document.getElementsByClassName('array-bar');
 
-    console.log(animations);
+    //console.log(animations);
 
     for (let i = 0; i < animations.length; i++) {
       const animation = animations[i];
@@ -204,7 +209,8 @@ export default class SortingVisualizer extends React.Component {
             <button
               className='button'
               onClick={() => {
-                if (!isSorted) this.mergeSort();
+                if (isSorted) this.resetArray().then(() => this.mergeSort());
+                else this.mergeSort();
               }}
             >
               Merge Sort
@@ -212,7 +218,8 @@ export default class SortingVisualizer extends React.Component {
             <button
               className='button'
               onClick={() => {
-                if (!isSorted) this.quickSort();
+                if (isSorted) this.resetArray().then(() => this.quickSort());
+                else this.quickSort();
               }}
             >
               Quick Sort
@@ -220,7 +227,8 @@ export default class SortingVisualizer extends React.Component {
             <button
               className='button'
               onClick={() => {
-                if (!isSorted) this.heapSort();
+                if (isSorted) this.resetArray().then(() => this.heapSort());
+                else this.heapSort();
               }}
             >
               Heap Sort
@@ -228,7 +236,8 @@ export default class SortingVisualizer extends React.Component {
             <button
               className='button'
               onClick={() => {
-                if (!isSorted) this.bubbleSort();
+                if (isSorted) this.resetArray().then(() => this.bubbleSort());
+                else this.bubbleSort();
               }}
             >
               Bubble Sort
