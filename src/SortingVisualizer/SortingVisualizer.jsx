@@ -6,7 +6,7 @@ import { getQuickSortAnimations } from '../SortingAlgorithms/quicksort.js';
 import { getHeapSortAnimations } from '../SortingAlgorithms/heapsort.js';
 
 // Change this value for the speed of the animations.
-const ANIMATION_SPEED_MS = 10;
+const ANIMATION_SPEED_MS = 25;
 
 // This is the main color of the array bars.
 const PRIMARY_COLOR = 'blue';
@@ -14,13 +14,15 @@ const PRIMARY_COLOR = 'blue';
 // This is the color of array bars that are being compared throughout the animations.
 const SECONDARY_COLOR = 'red';
 
+const MAX_SIZE = 6;
+
 let isSorted = false;
 
 export default class SortingVisualizer extends React.Component {
   constructor(props) {
     super(props);
     this.timeouts = [];
-    this.state = { array: [], speed: 4 };
+    this.state = { array: [], speed: 1, size: 1 };
   }
 
   componentDidMount() {
@@ -29,8 +31,9 @@ export default class SortingVisualizer extends React.Component {
 
   disableButtons() {
     const btns = document.getElementsByClassName('button');
-    const slider = document.querySelector('.speed-slider');
-    slider.classList.add('disabled');
+    const sliders = document.querySelectorAll('.speed-slider');
+    sliders[0].classList.add('disabled');
+    sliders[1].classList.add('disabled');
     for (let i = 1; i < btns.length; i++) {
       btns[i].classList.add('disabled');
     }
@@ -38,8 +41,9 @@ export default class SortingVisualizer extends React.Component {
 
   enableButtons() {
     const btns = document.getElementsByClassName('button');
-    const slider = document.querySelector('.speed-slider');
-    slider.classList.remove('disabled');
+    const sliders = document.querySelectorAll('.speed-slider');
+    sliders[0].classList.remove('disabled');
+    sliders[1].classList.remove('disabled');
     for (let i = 1; i < btns.length; i++) {
       btns[i].classList.remove('disabled');
     }
@@ -53,11 +57,12 @@ export default class SortingVisualizer extends React.Component {
     this.timeouts.forEach(timeout => clearTimeout(timeout));
     this.timeouts = [];
 
-    const array = [];
-    const maxWidth = window.innerWidth * 0.32 * (2 / 4); // Il moltiplicatore è basato sulla larghezza della barra
+    const barsPerPx = window.innerWidth / 6;
+    const maxWidth = ((barsPerPx * 0.98) / MAX_SIZE) * this.state.size;
+    let array = [];
 
     for (let i = 0; i < maxWidth; i++) {
-      array.push(Math.min(Math.random(), 0.99));
+      array.push(Math.min(Math.random() + 0.05, 0.99));
     }
 
     return new Promise(resolve => {
@@ -69,6 +74,8 @@ export default class SortingVisualizer extends React.Component {
           arrayBars[i].style.height = `${heightValue}%`;
           arrayBars[i].style.backgroundColor = PRIMARY_COLOR;
         }
+
+        console.log(this.state.array);
 
         resolve();
       });
@@ -128,7 +135,7 @@ export default class SortingVisualizer extends React.Component {
           const compareTimeout = setTimeout(() => {
             barOneStyle.backgroundColor = SECONDARY_COLOR;
             barTwoStyle.backgroundColor = SECONDARY_COLOR;
-          }, (i * ANIMATION_SPEED_MS) / speed);
+          }, ((i * ANIMATION_SPEED_MS) / speed) * (MAX_SIZE / this.state.size));
 
           this.timeouts.push(compareTimeout);
           break;
@@ -139,7 +146,7 @@ export default class SortingVisualizer extends React.Component {
 
             barOneStyle.height = `${barTwoHeight * 100}%`;
             if (barOneHeight) barTwoStyle.height = `${barOneHeight * 100}%`;
-          }, (i * ANIMATION_SPEED_MS) / speed);
+          }, ((i * ANIMATION_SPEED_MS) / speed) * (MAX_SIZE / this.state.size));
 
           this.timeouts.push(swapTimeout);
           break;
@@ -149,7 +156,7 @@ export default class SortingVisualizer extends React.Component {
           const resetTimeout = setTimeout(() => {
             barOneStyle.backgroundColor = PRIMARY_COLOR;
             barTwoStyle.backgroundColor = PRIMARY_COLOR;
-          }, (i * ANIMATION_SPEED_MS) / speed);
+          }, ((i * ANIMATION_SPEED_MS) / speed) * (MAX_SIZE / this.state.size));
 
           this.timeouts.push(resetTimeout);
           break;
@@ -162,7 +169,7 @@ export default class SortingVisualizer extends React.Component {
 
     const buttonTimeout = setTimeout(() => {
       this.enableButtons();
-    }, (animations.length * ANIMATION_SPEED_MS) / speed);
+    }, ((animations.length * ANIMATION_SPEED_MS) / speed) * (MAX_SIZE / this.state.size));
 
     animations.length = 0;
     this.timeouts.push(buttonTimeout);
@@ -187,6 +194,23 @@ export default class SortingVisualizer extends React.Component {
             <span id='title'>Sorting Visualizer</span>
           </div>
           <div className='menu'>
+            <p className='speed-value'>{this.state.size}</p>
+            <div className='slider'>
+              <p className='slider-label'>Size Slider</p>
+              <input
+                className='speed-slider'
+                type='range'
+                value={this.state.size}
+                min='1'
+                max={MAX_SIZE}
+                step='1'
+                onChange={e => {
+                  this.setState({ size: e.target.value }, () => {
+                    this.resetArray();
+                  });
+                }}
+              />
+            </div>
             <p className='speed-value'>{this.state.speed}</p>
             <div className='slider'>
               <p className='slider-label'>Speed Slider</p>

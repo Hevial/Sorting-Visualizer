@@ -8,16 +8,18 @@ html {
 
 .array-container {
   height: 91vh;
+  margin-left: 2%;
+  margin-right: 2%;
   display: flex;
   justify-content: center;
   align-items: flex-end;
 }
 
 .array-bar {
-  width: 4px;
+  width: fill;
   background-color: blue;
   margin: 0 1px;
-  border-radius: 2px 2px 0px 0px;
+  border-radius: 100px 100px 0px 0px;
   transition: height 0.2s ease;
 }
 
@@ -30,6 +32,7 @@ html {
 }
 
 .menu {
+  height: 9vh;
   display: flex;
   align-items: center;
   margin-left: 2%;
@@ -86,6 +89,7 @@ html {
 }
 
 .slider {
+  height: 9vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
