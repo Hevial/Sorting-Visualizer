@@ -62,7 +62,7 @@ export default class SortingVisualizer extends React.Component {
     let array = [];
 
     for (let i = 0; i < maxWidth; i++) {
-      array.push(Math.min(Math.random() + 0.05, 0.99));
+      array.push(Math.min(Math.random() + 0.05, 0.99 - (Math.random() / 10)));
     }
 
     return new Promise(resolve => {
